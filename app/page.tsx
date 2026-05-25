@@ -123,7 +123,7 @@ export default function LuxuryPortfolio() {
     },
     {
       title: "Luxury Portfolio",
-      image: "/portfolio.png",
+      image: "/profilephoto.png",
       desc: "Cinematic personal portfolio built using Next.js, Framer Motion and Lenis.",
       meta: "Portfolio • Motion • UI",
     },
