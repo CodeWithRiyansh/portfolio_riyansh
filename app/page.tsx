@@ -129,7 +129,7 @@ export default function LuxuryPortfolio() {
     },
     {
       title: "UPS Performance Tracker",
-      image: "/ups-tracker.png",
+      image: "/upstracker.png",
       desc: "Real-time dashboard for tracking work items, productivity metrics, break sessions and operational workflow.",
       meta: "Dashboard • Ops • Metrics",
     },
