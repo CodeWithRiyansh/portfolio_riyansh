@@ -46,10 +46,10 @@ export default function LuxuryPortfolio() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.1,
-      smoothWheel: true,
-    });
+   const lenis = new Lenis({
+  duration: window.innerWidth < 768 ? 0.6 : 1.1,
+  smoothWheel: window.innerWidth > 768,
+});
 
     let rafId: number;
 
@@ -104,8 +104,8 @@ export default function LuxuryPortfolio() {
   const heroBadges = [
     { label: "Next.js", className: "-left-10 top-12", delay: 0 },
     { label: "React", className: "-right-8 top-16", delay: 0.2 },
-    { label: "Tailwind CSS", className: "-left-14 bottom-24", delay: 0.4 },
-    { label: "Framer Motion", className: "-right-16 bottom-16", delay: 0.6 },
+    { label: "Tailwind CSS", className: "left-0 bottom-8", delay: 0.4 },
+    { label: "Framer Motion", className: "right-0 bottom-0", delay: 0.6 },
   ];
 
   const stats = [
@@ -174,13 +174,13 @@ export default function LuxuryPortfolio() {
         <motion.div
           animate={{ x: [0, 60, -30, 0], y: [0, -40, 25, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="absolute left-[-12%] top-[-10%] h-[560px] w-[560px] rounded-full bg-[#7a1f3d]/20 blur-[130px]"
+          className="absolute left-[-12%] top-[-10%] h-[560px] w-[560px] rounded-full bg-[#7a1f3d]/20 blur-[80px]"
         />
 
         <motion.div
           animate={{ x: [0, -50, 30, 0], y: [0, 35, -25, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-12%] right-[-10%] h-[560px] w-[560px] rounded-full bg-[#4b1023]/30 blur-[130px]"
+          className="absolute bottom-[-12%] right-[-10%] h-[560px] w-[560px] rounded-full bg-[#4b1023]/30 blur-[80px]"
         />
 
         <div className="absolute inset-0 opacity-[0.035] mix-blend-soft-light bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]" />
@@ -190,7 +190,7 @@ export default function LuxuryPortfolio() {
       <motion.div
         animate={{ x: mousePosition.x - 170, y: mousePosition.y - 170 }}
         transition={{ type: "spring", stiffness: 80, damping: 25 }}
-        className="pointer-events-none fixed left-0 top-0 z-30 h-[340px] w-[340px] rounded-full bg-[#c08a6e]/12 blur-[95px]"
+        className="pointer-events-none fixed left-0 top-0 z-30 hidden h-[340px] w-[340px] rounded-full bg-[#c08a6e]/12 blur-[95px] md:block"
       />
 
       {/* ================= NAVBAR ================= */}
@@ -291,7 +291,7 @@ export default function LuxuryPortfolio() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
-          className="relative mx-auto flex h-[360px] w-[360px] items-center justify-center md:h-[520px] md:w-[520px]"
+          className="relative mx-auto flex h-[280px] w-[280px]items-center justify-center md:h-[520px] md:w-[520px]"
         >
           <motion.div
             animate={{ rotate: 360 }}
