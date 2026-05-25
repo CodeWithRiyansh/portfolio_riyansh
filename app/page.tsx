@@ -117,7 +117,7 @@ export default function LuxuryPortfolio() {
   const projects = [
     {
       title: "Dawa Dunia",
-      image: "/dawadunia.png",
+      image: "/DAWADUNIYA.png",
       desc: "Healthcare platform with OTP authentication, premium UI and smooth user experience.",
       meta: "Healthcare • Auth • CRM",
     },
