@@ -164,7 +164,7 @@ export default function LuxuryPortfolio() {
   ];
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[#050505] text-[#f5e9e2] selection:bg-[#7a1f3d]/40">
+    <div className="relative min-h-screen overflow-hidden overflow-x-hidden bg-[#050505] text-[#f5e9e2] selection:bg-[#7a1f3d]/40">
       {/* ================= BACKGROUND ================= */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(192,138,110,0.14),transparent_26%),radial-gradient(circle_at_80%_25%,rgba(157,77,101,0.18),transparent_32%),radial-gradient(circle_at_bottom,rgba(75,16,35,0.32),transparent_42%)]" />
@@ -174,7 +174,7 @@ export default function LuxuryPortfolio() {
         <motion.div
           animate={{ x: [0, 60, -30, 0], y: [0, -40, 25, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="absolute left-[-22%] top-[-12%] h-[320px] w-[320px] rounded-full bg-[#7a1f3d]/20 blur-[70px] md:left-[-12%] md:h-[560px] md:w-[560px] md:blur-[90px]"
+          className="absolute left-[-22%] top-[-12%] h-[320px] w-[320px] rounded-full bg-[#7a1f3d]/20 blur-[70px] md:left-[-12%] md:h-[560px] md:w-[300px] md:w-[300px] md:w-[300px] md:w-[300px] md:w-[560px] md:blur-[90px]"
         />
 
         <motion.div
@@ -594,7 +594,7 @@ export default function LuxuryPortfolio() {
                 onBlur={() => setActiveField(null)}
                 rows={6}
                 name="message"
-                placeholder="Project ka scene batao..."
+                placeholder="Pls share about the Project..."
                 className="w-full resize-none rounded-2xl border border-white/10 bg-black/20 px-5 py-4 outline-none transition placeholder:text-white/35 focus:border-[#9d4d65] sm:px-6 sm:py-5"
               />
 
