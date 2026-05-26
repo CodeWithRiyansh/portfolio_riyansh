@@ -564,11 +564,10 @@ export default function LuxuryPortfolio() {
               </AnimatePresence>
             </div>
 
-            <form
-              action="https://formspree.io/f/YOUR_FORM_ID"
-              method="POST"
-              className="mt-10 space-y-5 sm:mt-14 sm:space-y-8"
-            >
+           <form
+  action="https://formspree.io/f/xeedrdqv"
+  method="POST"
+>
               <div className="grid gap-5 sm:grid-cols-2 sm:gap-8">
                 <input
                   onFocus={() => setActiveField("name")}
