@@ -564,9 +564,10 @@ export default function LuxuryPortfolio() {
               </AnimatePresence>
             </div>
 
-           <form
+          <form
   action="https://formspree.io/f/xeedrdqv"
   method="POST"
+  className="mt-14 space-y-8"
 >
               <div className="grid gap-5 sm:grid-cols-2 sm:gap-8">
                 <input
