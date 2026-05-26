@@ -42,6 +42,36 @@ export default function LuxuryPortfolio() {
   const [activeField, setActiveField] = useState<string | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus("sending");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xeedrdqv", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setFormStatus("success");
+        form.reset();
+        setActiveField(null);
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
+  };
+
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -174,7 +204,7 @@ export default function LuxuryPortfolio() {
         <motion.div
           animate={{ x: [0, 60, -30, 0], y: [0, -40, 25, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="absolute left-[-22%] top-[-12%] h-[320px] w-[320px] rounded-full bg-[#7a1f3d]/20 blur-[70px] md:left-[-12%] md:h-[560px] md:w-[300px] md:w-[300px] md:w-[300px] md:w-[300px] md:w-[560px] md:blur-[90px]"
+          className="absolute left-[-22%] top-[-12%] h-[320px] w-[320px] rounded-full bg-[#7a1f3d]/20 blur-[70px] md:left-[-12%] md:h-[560px] md:w-[560px] md:blur-[90px]"
         />
 
         <motion.div
@@ -564,17 +594,22 @@ export default function LuxuryPortfolio() {
               </AnimatePresence>
             </div>
 
-          <form
-  action="https://formspree.io/f/xeedrdqv"
-  method="POST"
-  className="mt-14 space-y-8"
->
+            <form
+              onSubmit={handleSubmit}
+              className="mt-14 space-y-8"
+            >
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Portfolio Contact Form Submission"
+              />
               <div className="grid gap-5 sm:grid-cols-2 sm:gap-8">
                 <input
                   onFocus={() => setActiveField("name")}
                   onBlur={() => setActiveField(null)}
                   type="text"
                   name="name"
+                  required
                   placeholder="Your Name"
                   className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 outline-none transition placeholder:text-white/35 focus:border-[#9d4d65] sm:px-6 sm:py-5"
                 />
@@ -584,6 +619,7 @@ export default function LuxuryPortfolio() {
                   onBlur={() => setActiveField(null)}
                   type="email"
                   name="email"
+                  required
                   placeholder="Your Email"
                   className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 outline-none transition placeholder:text-white/35 focus:border-[#9d4d65] sm:px-6 sm:py-5"
                 />
@@ -594,19 +630,45 @@ export default function LuxuryPortfolio() {
                 onBlur={() => setActiveField(null)}
                 rows={6}
                 name="message"
+                required
                 placeholder="Pls share about the Project..."
                 className="w-full resize-none rounded-2xl border border-white/10 bg-black/20 px-5 py-4 outline-none transition placeholder:text-white/35 focus:border-[#9d4d65] sm:px-6 sm:py-5"
               />
 
               <motion.button
                 type="submit"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-[#7a1f3d] py-4 text-xs font-black uppercase tracking-[0.25em] shadow-[0_0_40px_rgba(122,31,61,0.20)] sm:py-5 sm:text-sm sm:tracking-[0.3em]"
+                disabled={formStatus === "sending"}
+                whileHover={{ y: formStatus === "sending" ? 0 : -2 }}
+                whileTap={{ scale: formStatus === "sending" ? 1 : 0.98 }}
+                className="flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-[#7a1f3d] py-4 text-xs font-black uppercase tracking-[0.25em] shadow-[0_0_40px_rgba(122,31,61,0.20)] transition disabled:cursor-not-allowed disabled:opacity-60 sm:py-5 sm:text-sm sm:tracking-[0.3em]"
               >
-                Send Message
+                {formStatus === "sending" ? "Sending..." : "Send Message"}
                 <ChevronRight size={18} />
               </motion.button>
+
+              <AnimatePresence>
+                {formStatus === "success" && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 px-5 py-4 text-center text-sm font-semibold text-emerald-300"
+                  >
+                    Message sent successfully. I&apos;ll get back to you soon 🚀
+                  </motion.p>
+                )}
+
+                {formStatus === "error" && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    className="rounded-2xl border border-red-400/20 bg-red-400/10 px-5 py-4 text-center text-sm font-semibold text-red-300"
+                  >
+                    Something went wrong. Please try again or email me directly.
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </form>
           </div>
         </div>
@@ -639,8 +701,8 @@ export default function LuxuryPortfolio() {
 
             <div className="flex flex-wrap gap-3 sm:gap-4">
               {[
-                { Icon: FaGithub, href: "#" },
-                { Icon: FaLinkedin, href: "#" },
+                { Icon: FaGithub, href: "https://github.com/CodeWithRiyansh" },
+                { Icon: FaLinkedin, href: "https://www.linkedin.com/in/ravi-pandey-87a89a187" },
                 { Icon: FaInstagram, href: "#" },
                 { Icon: Mail, href: "mailto:riyanshpandey35@gmail.com" },
               ].map(({ Icon, href }, i) => (
