@@ -107,6 +107,18 @@ export default function LuxuryPortfolio() {
     };
   }, []);
 
+  useEffect(() => {
+    if (formStatus !== "success" && formStatus !== "error") return;
+
+    const timer = window.setTimeout(() => {
+      setFormStatus("idle");
+    }, 5000);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [formStatus]);
+
   const funnyPrompts: Record<string, string> = {
     name: "Naam toh batao bhai 👀",
     email: "Reply bhi karunga 😌",
@@ -222,6 +234,31 @@ export default function LuxuryPortfolio() {
         transition={{ type: "spring", stiffness: 80, damping: 25 }}
         className="pointer-events-none fixed left-0 top-0 z-30 hidden h-[340px] w-[340px] rounded-full bg-[#c08a6e]/12 blur-[95px] lg:block"
       />
+
+      {/* ================= FORM TOAST ================= */}
+      <AnimatePresence>
+        {formStatus === "success" && (
+          <motion.div
+            initial={{ opacity: 0, y: -18, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -18, scale: 0.96 }}
+            className="fixed left-1/2 top-24 z-[80] w-[92%] max-w-md -translate-x-1/2 rounded-2xl border border-emerald-400/25 bg-[#07140f]/95 px-5 py-4 text-center text-sm font-bold text-emerald-300 shadow-[0_0_45px_rgba(16,185,129,0.18)] backdrop-blur-2xl"
+          >
+            Message sent successfully 🚀 I&apos;ll get back to you soon.
+          </motion.div>
+        )}
+
+        {formStatus === "error" && (
+          <motion.div
+            initial={{ opacity: 0, y: -18, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -18, scale: 0.96 }}
+            className="fixed left-1/2 top-24 z-[80] w-[92%] max-w-md -translate-x-1/2 rounded-2xl border border-red-400/25 bg-[#160707]/95 px-5 py-4 text-center text-sm font-bold text-red-300 shadow-[0_0_45px_rgba(248,113,113,0.18)] backdrop-blur-2xl"
+          >
+            Message not sent. Please try again or email me directly.
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ================= NAVBAR ================= */}
       <div className="fixed left-0 top-4 z-50 flex w-full justify-center px-3 sm:top-6 sm:px-4">
@@ -596,6 +633,11 @@ export default function LuxuryPortfolio() {
 
             <form
               onSubmit={handleSubmit}
+              onChange={() => {
+                if (formStatus === "success" || formStatus === "error") {
+                  setFormStatus("idle");
+                }
+              }}
               className="mt-14 space-y-8"
             >
               <input
@@ -710,6 +752,8 @@ export default function LuxuryPortfolio() {
                   key={i}
                   whileHover={{ y: -5 }}
                   href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl transition hover:border-[#9d4d65]/50 hover:bg-white/[0.06] sm:h-16 sm:w-16"
                 >
                   <Icon size={20} />
