@@ -345,7 +345,7 @@ export default function LuxuryPortfolio() {
             <div className="absolute bottom-12 right-16 hidden h-2 w-2 rounded-full bg-[#c86a8b] shadow-[0_0_25px_#c86a8b] sm:block" />
 
             <img
-              src="/pp5.png"
+              src="/websiteprofile.png"
               alt="profile"
               className="relative z-10 h-[86%] w-[86%] rounded-full object-cover grayscale transition duration-700 hover:grayscale-0"
             />
